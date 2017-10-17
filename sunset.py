@@ -1,20 +1,42 @@
-import wiringpi
+#!/usr/bin/python
+import RPi.GPIO as GPIO
 import time
 
 
-io = wiringpi.GPIO(wiringpi.GPIO.WPI_MODE_PINS)
-io.pinMode(1,io.PWM_OUTPUT)
-io.pwmWrite(1,0)
-
-
-
-value = 1023 #how bright the LED is
+GPIO.setmode(GPIO.BCM)  # choose BCM or BOARD numbering schemes.  
+GPIO.setup(23, GPIO.OUT)  # set GPIO 25 as an output. You can use any GPIO port
+io = GPIO.PWM(23, 100)    # create an object p for PWM on port 23 at 1024 Hertz$
+                        # you can have more than one of these, but they need  
+                        # different names for each port   
+                        # e.g. p1, p2, motor, servo1 etc.
 increment = 1 #how fast to fade up
-
-while value >= 0:
-        io.pwmWrite(1,value) #write LED brightness
+f = open("lightLevel","r") #open the universal file to read
+value = int(f.read()) #get the value (INT)
+if value>100:
+  value = 100
+  print "Over value"
+  f.close()
+  f = open("lightLevel", "w")  #open the file to write (overwriting the old value)
+  f.write(str(value)) #write the value as a string to the file
+  f.close()
+if value < 0:
+  value = 0
+  print "under 0"
+  f.close()
+  f = open("lightLevel", "w")  #open the file to write (overwriting the old value)
+  f.write(str(value)) #write the value as a string to the file
+  f.close()
+io.start(value) #turn the lights on/off if something adjusted them improperly
+	
+while value > 0:
+	f = open("lightLevel","r") #open the universal file to read
+	value = int(f.read()) #get the value (INT)
+        io.start(value) #write LED brightness AS A PERCENTAGE OF DUTY CYCLE
+	f.close() #close the file
         value -= increment #increment it
-        time.sleep(2.63) #pause for 2.3 s for 45 min sunrise
-
-
-
+	f = open("lightLevel", "w")  #open the file to write (overwriting the old value)
+	f.write(str(value)) #write the value as a string to the file
+	f.close()
+        time.sleep(2.3) #pause for 2.3 s for 45 min sunrise 
+        print (value)
+GPIO.cleanup()
