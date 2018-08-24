@@ -1,0 +1,20 @@
+import daemon
+import sunrise
+import sunset
+import datetime
+
+with daemon.DaemonContext(
+        chroot_directory=None,
+        working_directory='/var/lib/myprettylittledaemon'):
+    #print(os.getcwd())
+    
+    #sleep a second, check if it's time to do something, go back to sleep
+    time.sleep(1) #sleep a second
+    ActionTime = open("GoTime","r") #open the GoTime file to read
+    TimeTo = int(ActionTime.read()) #get the value (INT)
+    If (TimeTo == (datetime.datetime.time(datetime.datetime.now()))): #holy moly test this
+    #If it's time to do something, find out what and do it
+        #Find out what to do
+        DoThis = open("NextAction","r") #open the NextAction file to read
+        DoThis #Call the appropriate module test this
+        
