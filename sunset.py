@@ -1,7 +1,10 @@
 #!/usr/bin/python
+#Sunset
 import RPi.GPIO as GPIO
 import time
+import os
 
+fname = PauseFile.txt #pausefile name
 
 GPIO.setmode(GPIO.BCM)  # choose BCM or BOARD numbering schemes.  
 GPIO.setup(23, GPIO.OUT)  # set GPIO 25 as an output. You can use any GPIO port
@@ -12,6 +15,7 @@ io = GPIO.PWM(23, 100)    # create an object p for PWM on port 23 at 1024 Hertz$
 increment = 1 #how fast to fade up
 f = open("lightLevel","r") #open the universal file to read
 value = int(f.read()) #get the value (INT)
+#Reset if the value is goofy, fix it
 if value>100:
   value = 100
   print "Over value"
@@ -29,6 +33,8 @@ if value < 0:
 io.start(value) #turn the lights on/off if something adjusted them improperly
 	
 while value > 0:
+        if os.path.exists(fname):#If PauseFile exists, wait until it doesn't
+            sleep(1)
 	f = open("lightLevel","r") #open the universal file to read
 	value = int(f.read()) #get the value (INT)
         io.start(value) #write LED brightness AS A PERCENTAGE OF DUTY CYCLE
