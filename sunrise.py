@@ -46,6 +46,7 @@ while value<100:
         time.sleep(2.3) #pause for 2.3 s for 45 min sunrise 
         print (value)
 
+#Why is this here?
 f = open("lightLevel","r") #open the universal file to read
 value = int(f.read()) #get the value (INT)
 io.start(value) #write LED brightness AS A PERCENTAGE OF DUTY CYCLE
