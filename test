@@ -1,12 +1,12 @@
-import daemon
+#import daemon
 import sunrise
 import sunset
 import datetime
 
 
-with daemon.DaemonContext(
-        chroot_directory=None,
-        working_directory='/var/lib/myprettylittledaemon'):
+#with daemon.DaemonContext(
+#        chroot_directory=None,
+#        working_directory='/var/lib/myprettylittledaemon'):
     #print(os.getcwd())
     
     #check if it's time to do something(DONE), sleep a second (DONE)
@@ -22,4 +22,30 @@ while 1:
         #Find out what to do
         DoThis = open("NextAction","r") #open the NextAction file to read
         DoThis #Call the appropriate module test this
-    time.sleep(1) #sleep a second        
+    time.sleep(1) #sleep a second
+    
+    """
+#Or try this:
+#get today's date
+    date_time = str(datetime.datetime.now())
+    time = date_time.split()[0]
+
+    #If it exists, open file of the day
+    if os.path.exists(time):#If file of the day exists, open it
+        ActionTime = open(time,"r") #open the file of the day to read
+    else: #if there isn't one
+        dayweek = datetime.datetime.today().weekday()
+        if (dayweek<5):
+            #Open weekday file
+            weekday = open("weekday","r")
+            #find the first action item and do it
+            #for these files, recyle the actions
+        else:
+            #Open weekend file
+            weekday = open("weekend","r")
+            #find the first action item and do it            
+            #for these files, recycle the actions
+
+calendar (to be implemented later) will create a file for holidays, vacations, "I'm sick and calling in tomorrow."
+
+"""
