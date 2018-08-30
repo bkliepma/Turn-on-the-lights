@@ -3,10 +3,12 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>IOT Button</title>
+        <title>Bedroom Lights</title>
     </head>
     
 	<body>
+	<a href="/cgi-bin/config">Config</a> <br>
+	
 	<a href="/cgi-bin/on.py">On</a> <br>
 	<a href="cgi-bin/off.py">Off</a> <br>
     	<a href="/cgi-bin/Sunrise.py">Sunrise</a> <br>
@@ -24,4 +26,5 @@
         #Display blank
 	</body>
 </html>
+
 
